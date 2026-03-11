@@ -39,7 +39,7 @@ jobs:
       - run: npm ci
 
       - name: Run migrations
-        run: npm run db:migrate
+        run: for f in drizzle/*.sql; do psql $DATABASE_URL -f "$f"; done
 
       - name: Type check
         run: npx tsc --noEmit
