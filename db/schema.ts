@@ -26,3 +26,10 @@ export const volunteerContacts = pgTable('volunteer_contacts', {
   phone: text('phone'),
   email: text('email'),
 })
+
+export const admins = pgTable('admins', {
+  id: serial('id').primaryKey(),
+  username: text('username').notNull().unique(),
+  passwordHash: text('password_hash').notNull(),
+  createdAt: timestamp('created_at').default(sql`now()`),
+})

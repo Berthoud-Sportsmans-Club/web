@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const stats = [
   { label: 'Member Limit', value: '135' },
   { label: 'Location', value: 'Berthoud, CO' },
-  { label: 'Focus', value: 'Loveland Lake' },
+  { label: 'Focus', value: 'Loveland Reservoir' },
   { label: 'Activity', value: 'Year-Round' },
 ]
 
@@ -61,7 +61,7 @@ export default function AboutPage() {
                     safe enjoyment of outdoor recreation within the community.
                   </p>
                   <p>
-                    Our club focuses on providing access to Loveland Lake for fishing, along with
+                    Our club focuses on providing access to Loveland Reservoir for fishing, along with
                     supporting hunting and other outdoor activities in the Berthoud, Colorado area.
                     We are committed to responsible stewardship of our natural resources and
                     fostering a welcoming community for outdoor enthusiasts.
@@ -94,7 +94,7 @@ export default function AboutPage() {
                 <h2 className="font-serif text-2xl font-bold text-forest-900 dark:text-forest-100 mb-4">Activities</h2>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
-                    { icon: '🎣', title: 'Fishing', desc: 'Access to Loveland Lake with multiple species including trout, bass, and catfish.' },
+                    { icon: '🎣', title: 'Fishing', desc: 'Access to Loveland Reservoir with multiple species including trout, bass, and catfish.' },
                     { icon: '🦆', title: 'Hunting', desc: 'Hunting opportunities coordinated through the club for members in good standing.' },
                     { icon: '📅', title: 'Club Events', desc: 'Annual calendar of events, meetings, and volunteer activities throughout the year.' },
                     { icon: '🤝', title: 'Community', desc: 'A close-knit group of outdoor enthusiasts supporting each other and the Berthoud area.' },

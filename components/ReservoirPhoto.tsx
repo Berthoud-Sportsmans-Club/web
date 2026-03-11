@@ -18,11 +18,11 @@ export default function ReservoirPhoto() {
       <button
         onClick={() => setOpen(true)}
         className="relative rounded-lg h-40 w-full overflow-hidden mb-4 group block"
-        aria-label="View full photo of Loveland Lake"
+        aria-label="View full photo of Loveland Reservoir"
       >
         <Image
           src="/loveland-reservoir.jpg"
-          alt="Loveland Lake"
+          alt="Loveland Reservoir"
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
@@ -45,7 +45,7 @@ export default function ReservoirPhoto() {
           <div className="relative max-w-4xl w-full max-h-[90vh] aspect-video">
             <Image
               src="/loveland-reservoir.jpg"
-              alt="Loveland Lake"
+              alt="Loveland Reservoir"
               fill
               className="object-contain"
               sizes="(max-width: 768px) 100vw, 80vw"
