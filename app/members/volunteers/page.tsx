@@ -1,13 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { db } from '@/db/client'
-import { volunteerContacts } from '@/db/schema'
 
-export const metadata: Metadata = { title: 'Volunteers – BSC Members' }
+export const metadata: Metadata = { title: 'Gate Access – BSC Members' }
 
-export default async function VolunteersPage() {
-  const contacts = await db.select().from(volunteerContacts)
-
+export default function GateAccessPage() {
   return (
     <div className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -16,47 +12,46 @@ export default async function VolunteersPage() {
           <Link href="/members/dashboard" className="text-sm text-forest-600 dark:text-forest-400 hover:text-gold-600 dark:hover:text-gold-400">
             ← Dashboard
           </Link>
-          <h1 className="section-heading mt-2">Programs &amp; Volunteers</h1>
+          <h1 className="section-heading mt-2">West Side Entrance</h1>
         </div>
 
-        <div className="max-w-3xl">
+        <div className="max-w-2xl space-y-4">
 
-          <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Any member interested in serving and helping on any of the Fish, Lake Maintenance, or
-            Hunting Programs please contact the appropriate director below.
-          </p>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {contacts.map((c) => (
-              <div key={c.id} className="card p-5">
-                <p className="text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">
-                  {c.program}
-                </p>
-                <p className="font-serif font-bold text-forest-900 dark:text-forest-100 mb-2">{c.director}</p>
-                {c.phone && (
-                  <a href={`tel:${c.phone.replace(/\D/g, '')}`}
-                     className="block text-sm text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-forest-300">
-                    {c.phone}
-                  </a>
-                )}
-                {c.email && (
-                  <a href={`mailto:${c.email}`}
-                     className="block text-sm text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-forest-300 truncate">
-                    {c.email}
-                  </a>
-                )}
-              </div>
-            ))}
-            {contacts.length === 0 && (
-              <p className="text-gray-500 dark:text-gray-400 text-sm col-span-3">Volunteer information is being updated.</p>
-            )}
+          <div className="card p-6">
+            <p className="text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">Step 1 — Directions</p>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              Head north on Meadowlark (across from Kwik Korner) to the end of the road.
+            </p>
           </div>
 
-          <div className="mt-8 bg-forest-900 text-white rounded-xl p-6">
-            <p className="text-forest-100 text-sm leading-relaxed">
-              While the Program Directors have individual responsibilities, no one person can get
-              all the necessary work done by themselves. Your help is needed on all programs.
-              We are a club, 135 strong — don&apos;t wait to be asked; step up.
+          <div className="card p-6">
+            <p className="text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">Step 2 — Bike Park Electronic Gate</p>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              The electronic gate for the Bike Park is open sunup to sundown in spring, summer, and fall.
+              After hours, use the keypad code:
+            </p>
+            <p className="mt-3 font-mono text-2xl font-bold text-forest-900 dark:text-forest-100 tracking-widest">2023#</p>
+          </div>
+
+          <div className="card p-6">
+            <p className="text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">Step 3 — Green Emergency Services Gate</p>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              Stay to the right and go through the green gate (emergency services gate). Lock combination:
+            </p>
+            <p className="mt-3 font-mono text-2xl font-bold text-forest-900 dark:text-forest-100 tracking-widest">0513</p>
+            <p className="mt-3 text-gray-700 dark:text-gray-300 leading-relaxed">
+              Follow the road north to the outhouse and picnic table.
+            </p>
+          </div>
+
+          <div className="card p-6">
+            <p className="text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">Step 4 — Green Double Swing Gate</p>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              There is a green double swing gate on the right. The combination is the same as the east gates:
+            </p>
+            <p className="mt-3 font-mono text-2xl font-bold text-forest-900 dark:text-forest-100 tracking-widest">1955</p>
+            <p className="mt-3 text-gray-700 dark:text-gray-300 leading-relaxed">
+              Park all vehicles inside of that gate.
             </p>
           </div>
 
