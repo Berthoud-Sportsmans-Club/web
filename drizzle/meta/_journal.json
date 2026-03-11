@@ -8,6 +8,13 @@
       "when": 1773243873067,
       "tag": "0000_brief_next_avengers",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1773261786322,
+      "tag": "0001_fantastic_sentinel",
+      "breakpoints": true
     }
   ]
 }

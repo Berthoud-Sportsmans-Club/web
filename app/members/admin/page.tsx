@@ -23,7 +23,8 @@ export default function AdminLoginPage() {
         body: JSON.stringify({ username, password }),
       })
       if (res.ok) {
-        router.push('/members/admin/dashboard')
+        const data = await res.json()
+        router.push(data.mustChangePassword ? '/members/admin/change-password' : '/members/admin/dashboard')
       } else {
         setError('Invalid credentials. Please try again.')
       }

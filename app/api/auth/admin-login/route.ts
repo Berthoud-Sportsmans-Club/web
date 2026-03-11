@@ -40,6 +40,12 @@ export async function POST(request: Request) {
   const cookieStore = await cookies()
   cookieStore.set('bsc_member', '1', COOKIE_OPTS)
   cookieStore.set('bsc_admin', '1', COOKIE_OPTS)
+  cookieStore.set('bsc_admin_user', admin.username, COOKIE_OPTS)
+
+  if (admin.mustChangePassword) {
+    cookieStore.set('bsc_admin_pwchange', '1', COOKIE_OPTS)
+    return NextResponse.json({ ok: true, mustChangePassword: true })
+  }
 
   return NextResponse.json({ ok: true })
 }

@@ -93,7 +93,15 @@ export default function AdminDashboardPage() {
           >
             ← Back to member dashboard
           </Link>
-          <AdminLogoutButton />
+          <div className="flex items-center gap-4">
+            <Link
+              href="/members/admin/change-password"
+              className="text-sm text-gray-500 dark:text-gray-400 hover:underline"
+            >
+              Change password
+            </Link>
+            <AdminLogoutButton />
+          </div>
         </div>
 
       </div>
