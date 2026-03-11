@@ -1,1 +1,1 @@
-ALTER TABLE "admins" ADD COLUMN "must_change_password" boolean DEFAULT true NOT NULL;
+ALTER TABLE "admins" ADD COLUMN "must_change_password" boolean DEFAULT false NOT NULL;

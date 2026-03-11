@@ -15,6 +15,13 @@
       "when": 1773261786322,
       "tag": "0001_fantastic_sentinel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1773263540376,
+      "tag": "0002_premium_nighthawk",
+      "breakpoints": true
     }
   ]
 }
