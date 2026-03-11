@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Identify Your Fish',
-  description: 'A guide to fish species found in Loveland Lake and surrounding Colorado Front Range waters.',
+  description: 'A guide to fish species found in Loveland Reservoir and surrounding Colorado Front Range waters.',
 }
 
 const fish = [
@@ -101,7 +101,7 @@ export default function FishPage() {
             Identify Your Fish
           </h1>
           <p className="text-forest-300 text-lg leading-relaxed">
-            Common fish species found in Loveland Lake and surrounding
+            Common fish species found in Loveland Reservoir and surrounding
             Colorado Front Range waters.
           </p>
         </div>

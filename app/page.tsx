@@ -21,7 +21,7 @@ const quickCards = [
       </svg>
     ),
     title: 'Identify Your Fish',
-    desc: 'Not sure what you caught? Browse our guide to fish species found in and around Loveland Lake.',
+    desc: 'Not sure what you caught? Browse our guide to fish species found in and around Loveland Reservoir.',
     href: '/fish',
     cta: 'View Fish Guide',
   },
@@ -78,7 +78,7 @@ export default function HomePage() {
           </h1>
           <p className="text-forest-200 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
             A private sportsman&apos;s club devoted to fishing, hunting, and the safe
-            enjoyment of outdoor recreation on Loveland Lake and the surrounding
+            enjoyment of outdoor recreation on Loveland Reservoir and the surrounding
             Colorado Front Range.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -127,7 +127,7 @@ export default function HomePage() {
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                 The members portal contains important information about club events,
                 activities, rules and regulations, and fishing and hunting updates
-                for Loveland Lake.
+                for Loveland Reservoir.
               </p>
               <ul className="space-y-2 mb-6">
                 {[

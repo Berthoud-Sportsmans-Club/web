@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Berthoud Sportsman's Club",
   },
   description:
-    "Fishing, hunting, and outdoor recreation in Berthoud, Colorado. A private club devoted to offering recreational opportunities at Loveland Lake.",
+    "Fishing, hunting, and outdoor recreation in Berthoud, Colorado. A private club devoted to offering recreational opportunities at Loveland Reservoir.",
 }
 
 export default function RootLayout({
