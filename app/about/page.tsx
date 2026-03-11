@@ -46,15 +46,15 @@ export default function AboutPage() {
       </section>
 
       {/* Main content */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-forest-900">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-12">
 
             {/* Mission */}
             <div className="lg:col-span-2 space-y-8">
               <div>
-                <h2 className="font-serif text-2xl font-bold text-forest-900 mb-4">Our Mission</h2>
-                <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-4">
+                <h2 className="font-serif text-2xl font-bold text-forest-900 dark:text-forest-100 mb-4">Our Mission</h2>
+                <div className="prose prose-gray max-w-none text-gray-600 dark:text-gray-300 leading-relaxed space-y-4">
                   <p>
                     The Berthoud Sportsman&apos;s Club is an organization devoted to offering and
                     supporting recreational opportunities for its members, and to promoting the
@@ -70,8 +70,8 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <h2 className="font-serif text-2xl font-bold text-forest-900 mb-4">Membership</h2>
-                <div className="text-gray-600 leading-relaxed space-y-4">
+                <h2 className="font-serif text-2xl font-bold text-forest-900 dark:text-forest-100 mb-4">Membership</h2>
+                <div className="text-gray-600 dark:text-gray-300 leading-relaxed space-y-4">
                   <p>
                     Membership in Berthoud Sportsman&apos;s Club is limited to <strong>135 persons</strong>.
                     This cap ensures that our facilities remain well-maintained and that every member
@@ -91,7 +91,7 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <h2 className="font-serif text-2xl font-bold text-forest-900 mb-4">Activities</h2>
+                <h2 className="font-serif text-2xl font-bold text-forest-900 dark:text-forest-100 mb-4">Activities</h2>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
                     { icon: '🎣', title: 'Fishing', desc: 'Access to Loveland Lake with multiple species including trout, bass, and catfish.' },
@@ -99,10 +99,10 @@ export default function AboutPage() {
                     { icon: '📅', title: 'Club Events', desc: 'Annual calendar of events, meetings, and volunteer activities throughout the year.' },
                     { icon: '🤝', title: 'Community', desc: 'A close-knit group of outdoor enthusiasts supporting each other and the Berthoud area.' },
                   ].map(({ icon, title, desc }) => (
-                    <div key={title} className="bg-cream rounded-xl p-5 border border-parchment">
+                    <div key={title} className="bg-cream dark:bg-forest-800 rounded-xl p-5 border border-parchment dark:border-forest-700">
                       <div className="text-2xl mb-2">{icon}</div>
-                      <h3 className="font-semibold text-forest-900 mb-1">{title}</h3>
-                      <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+                      <h3 className="font-semibold text-forest-900 dark:text-forest-100 mb-1">{title}</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
                     </div>
                   ))}
                 </div>
@@ -113,10 +113,10 @@ export default function AboutPage() {
             <div className="space-y-6">
               {/* Location card */}
               <div className="card p-6">
-                <h3 className="font-serif text-lg font-bold text-forest-900 mb-4">Location</h3>
+                <h3 className="font-serif text-lg font-bold text-forest-900 dark:text-forest-100 mb-4">Location</h3>
                 <ReservoirPhoto />
-                <address className="not-italic text-sm text-gray-600 space-y-1">
-                  <p className="font-medium text-forest-900">Berthoud Sportsman&apos;s Club, Inc.</p>
+                <address className="not-italic text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                  <p className="font-medium text-forest-900 dark:text-forest-100">Berthoud Sportsman&apos;s Club, Inc.</p>
                   <p>P.O. Box 1707</p>
                   <p>Berthoud, Colorado 80513</p>
                 </address>

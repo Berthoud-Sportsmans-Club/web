@@ -9,11 +9,11 @@ export default async function VolunteersPage() {
   const contacts = await db.select().from(volunteerContacts)
 
   return (
-    <div className="bg-cream min-h-[calc(100vh-4rem)] py-12">
+    <div className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
         <div className="mb-8">
-          <Link href="/members/dashboard" className="text-sm text-forest-600 hover:text-gold-600">
+          <Link href="/members/dashboard" className="text-sm text-forest-600 dark:text-forest-400 hover:text-gold-600 dark:hover:text-gold-400">
             ← Dashboard
           </Link>
           <h1 className="section-heading mt-2">Programs &amp; Volunteers</h1>
@@ -21,7 +21,7 @@ export default async function VolunteersPage() {
 
         <div className="max-w-3xl">
 
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
             Any member interested in serving and helping on any of the Fish, Lake Maintenance, or
             Hunting Programs please contact the appropriate director below.
           </p>
@@ -32,23 +32,23 @@ export default async function VolunteersPage() {
                 <p className="text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">
                   {c.program}
                 </p>
-                <p className="font-serif font-bold text-forest-900 mb-2">{c.director}</p>
+                <p className="font-serif font-bold text-forest-900 dark:text-forest-100 mb-2">{c.director}</p>
                 {c.phone && (
                   <a href={`tel:${c.phone.replace(/\D/g, '')}`}
-                     className="block text-sm text-gray-600 hover:text-forest-700">
+                     className="block text-sm text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-forest-300">
                     {c.phone}
                   </a>
                 )}
                 {c.email && (
                   <a href={`mailto:${c.email}`}
-                     className="block text-sm text-gray-600 hover:text-forest-700 truncate">
+                     className="block text-sm text-gray-600 dark:text-gray-300 hover:text-forest-700 dark:hover:text-forest-300 truncate">
                     {c.email}
                   </a>
                 )}
               </div>
             ))}
             {contacts.length === 0 && (
-              <p className="text-gray-500 text-sm col-span-3">Volunteer information is being updated.</p>
+              <p className="text-gray-500 dark:text-gray-400 text-sm col-span-3">Volunteer information is being updated.</p>
             )}
           </div>
 

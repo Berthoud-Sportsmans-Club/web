@@ -12,22 +12,22 @@ const violations = [
 
 export default function ViolationsPage() {
   return (
-    <div className="bg-cream min-h-[calc(100vh-4rem)] py-12">
+    <div className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
         <div className="mb-8">
-          <Link href="/members/dashboard" className="text-sm text-forest-600 hover:text-gold-600">
+          <Link href="/members/dashboard" className="text-sm text-forest-600 dark:text-forest-400 hover:text-gold-600 dark:hover:text-gold-400">
             ← Dashboard
           </Link>
           <h1 className="section-heading mt-2">Rule Violation Policy</h1>
-          <p className="text-gray-500 text-sm mt-1">Adopted August 11, 2017</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Adopted August 11, 2017</p>
         </div>
 
         <div className="max-w-3xl space-y-6">
 
           <div className="card p-6 md:p-8">
-            <h2 className="font-serif text-lg font-bold text-forest-900 mb-4">Violations</h2>
-            <p className="text-gray-600 text-sm mb-4">
+            <h2 className="font-serif text-lg font-bold text-forest-900 dark:text-forest-100 mb-4">Violations</h2>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
               The following rules were unanimously approved at the August 8, 2017 regular Club
               meeting after lengthy discussion:
             </p>
@@ -37,7 +37,7 @@ export default function ViolationsPage() {
                   <span className="shrink-0 mt-0.5 h-6 w-6 rounded-full bg-red-700 text-white text-xs font-bold flex items-center justify-center">
                     {i + 1}
                   </span>
-                  <p className="text-gray-700 text-sm leading-relaxed">{v}</p>
+                  <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed">{v}</p>
                 </li>
               ))}
             </ol>

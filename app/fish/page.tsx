@@ -13,7 +13,7 @@ const fish = [
       'The most commonly stocked trout in Colorado. Recognized by its vivid pink-to-red lateral stripe and black spots covering the body and fins.',
     features: ['Pink/red lateral stripe', 'Small black spots on body & fins', 'Silver flanks'],
     season: 'Year-round',
-    color: 'bg-blue-50 border-blue-100',
+    color: 'bg-blue-50 border-blue-100 dark:bg-blue-950 dark:border-blue-900',
     iconColor: 'text-blue-500',
   },
   {
@@ -23,7 +23,7 @@ const fish = [
       'A wary and sought-after sport fish. Brown trout have golden-brown flanks with distinctive red and black spots, often ringed with pale halos.',
     features: ['Golden-brown flanks', 'Red & black spots with halos', 'Lighter belly'],
     season: 'Year-round',
-    color: 'bg-amber-50 border-amber-100',
+    color: 'bg-amber-50 border-amber-100 dark:bg-amber-950 dark:border-amber-900',
     iconColor: 'text-amber-600',
   },
   {
@@ -33,7 +33,7 @@ const fish = [
       'The most abundant catfish species in Colorado. Identified by its deeply forked tail, slender body, and scattered dark spots on younger fish.',
     features: ['Deeply forked tail', 'Whisker-like barbels', 'Spots on juveniles'],
     season: 'Spring – Fall',
-    color: 'bg-gray-50 border-gray-200',
+    color: 'bg-gray-50 border-gray-200 dark:bg-gray-900 dark:border-gray-700',
     iconColor: 'text-gray-500',
   },
   {
@@ -43,7 +43,7 @@ const fish = [
       'A popular sport fish recognizable by its large mouth extending past the eye and a dark lateral stripe running the length of the body.',
     features: ['Mouth extends past eye', 'Dark horizontal stripe', 'Deep green coloring'],
     season: 'Spring – Fall',
-    color: 'bg-green-50 border-green-100',
+    color: 'bg-green-50 border-green-100 dark:bg-green-950 dark:border-green-900',
     iconColor: 'text-green-600',
   },
   {
@@ -53,7 +53,7 @@ const fish = [
       'Similar to largemouth but with vertical bars instead of a lateral stripe, and a mouth that does not extend past the eye. Bronze-green in color.',
     features: ['Mouth stops at eye', 'Vertical bars on sides', 'Bronze-green coloring'],
     season: 'Spring – Fall',
-    color: 'bg-lime-50 border-lime-100',
+    color: 'bg-lime-50 border-lime-100 dark:bg-lime-950 dark:border-lime-900',
     iconColor: 'text-lime-700',
   },
   {
@@ -63,7 +63,7 @@ const fish = [
       'Easy to identify with vivid yellow-green flanks and six to eight dark vertical bars. A schooling fish popular with ice anglers.',
     features: ['Yellow-green flanks', '6–8 dark vertical bars', 'Orange-tinged pelvic fins'],
     season: 'Year-round (great for ice fishing)',
-    color: 'bg-yellow-50 border-yellow-100',
+    color: 'bg-yellow-50 border-yellow-100 dark:bg-yellow-950 dark:border-yellow-900',
     iconColor: 'text-yellow-600',
   },
   {
@@ -73,7 +73,7 @@ const fish = [
       'Named for their large, glassy eyes adapted to low-light conditions. Olive-gold coloring with a distinctive white-tipped lower tail lobe.',
     features: ['Large, glassy eyes', 'Olive-gold flanks', 'White tip on lower tail lobe'],
     season: 'Year-round',
-    color: 'bg-orange-50 border-orange-100',
+    color: 'bg-orange-50 border-orange-100 dark:bg-orange-950 dark:border-orange-900',
     iconColor: 'text-orange-500',
   },
   {
@@ -83,7 +83,7 @@ const fish = [
       'A stocked hybrid of white bass and striped bass. Aggressive fighters with broken horizontal stripes across silver flanks.',
     features: ['Broken horizontal stripes', 'Silver flanks', 'Stocky, deep body'],
     season: 'Spring – Fall',
-    color: 'bg-slate-50 border-slate-200',
+    color: 'bg-slate-50 border-slate-200 dark:bg-slate-900 dark:border-slate-700',
     iconColor: 'text-slate-500',
   },
 ]
@@ -126,7 +126,7 @@ export default function FishPage() {
       </section>
 
       {/* Fish grid */}
-      <section className="py-16 bg-cream">
+      <section className="py-16 bg-cream dark:bg-forest-950">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {fish.map((f) => (
@@ -141,14 +141,14 @@ export default function FishPage() {
                   </svg>
                 </div>
 
-                <h2 className="font-serif text-lg font-bold text-forest-900 mb-0.5">{f.name}</h2>
-                <p className="text-xs italic text-gray-400 mb-3">{f.scientific}</p>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">{f.description}</p>
+                <h2 className="font-serif text-lg font-bold text-forest-900 dark:text-forest-100 mb-0.5">{f.name}</h2>
+                <p className="text-xs italic text-gray-400 dark:text-gray-500 mb-3">{f.scientific}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">{f.description}</p>
 
                 <div className="border-t border-current border-opacity-10 pt-3 space-y-1.5">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Key Features</p>
+                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Key Features</p>
                   {f.features.map((feat) => (
-                    <div key={feat} className="flex items-start gap-2 text-xs text-gray-600">
+                    <div key={feat} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-300">
                       <svg className="h-3.5 w-3.5 text-forest-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
@@ -158,7 +158,7 @@ export default function FishPage() {
                 </div>
 
                 <div className="mt-3 pt-3 border-t border-current border-opacity-10">
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
                     <span className="font-semibold">Best Season:</span> {f.season}
                   </span>
                 </div>
@@ -169,12 +169,12 @@ export default function FishPage() {
       </section>
 
       {/* CPW callout */}
-      <section className="py-12 bg-white border-t border-parchment">
+      <section className="py-12 bg-white dark:bg-forest-900 border-t border-parchment dark:border-forest-700">
         <div className="mx-auto max-w-3xl px-4 text-center">
-          <h2 className="font-serif text-2xl font-bold text-forest-900 mb-3">
+          <h2 className="font-serif text-2xl font-bold text-forest-900 dark:text-forest-100 mb-3">
             Need More Help?
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
             Colorado Parks &amp; Wildlife maintains a comprehensive online fish identification
             tool covering all species found in Colorado waters.
           </p>

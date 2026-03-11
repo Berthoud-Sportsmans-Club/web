@@ -93,7 +93,7 @@ export default function HomePage() {
       </section>
 
       {/* Welcome split section */}
-      <section className="py-16 bg-white border-b border-parchment">
+      <section className="py-16 bg-white dark:bg-forest-900 border-b border-parchment dark:border-forest-700">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-start">
             {/* Visitors */}
@@ -103,28 +103,28 @@ export default function HomePage() {
                 Welcome
               </div>
               <h2 className="section-heading mb-4">Welcome to BSC</h2>
-              <p className="text-gray-600 leading-relaxed mb-4">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                 The Berthoud Sportsman&apos;s Club is an organization devoted to offering
                 and supporting recreational opportunities for its members, and to promoting
                 the safe enjoyment of outdoor recreation within the community.
               </p>
-              <p className="text-gray-600 leading-relaxed">
-                Membership is limited to <strong className="text-forest-800">135 persons</strong>,
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Membership is limited to <strong className="text-forest-800 dark:text-forest-200">135 persons</strong>,
                 ensuring our lake and facilities remain an intimate, well-maintained
                 experience for all members.
               </p>
             </div>
 
             {/* Members */}
-            <div className="bg-forest-50 rounded-2xl p-8 border border-forest-100">
-              <div className="inline-flex items-center gap-2 text-forest-600 text-xs font-semibold uppercase tracking-widest mb-3">
+            <div className="bg-forest-50 dark:bg-forest-800 rounded-2xl p-8 border border-forest-100 dark:border-forest-700">
+              <div className="inline-flex items-center gap-2 text-forest-600 dark:text-forest-400 text-xs font-semibold uppercase tracking-widest mb-3">
                 <span className="h-px w-8 bg-forest-400 inline-block" />
                 Current Members
               </div>
-              <h2 className="font-serif text-2xl font-bold text-forest-900 mb-4">
+              <h2 className="font-serif text-2xl font-bold text-forest-900 dark:text-forest-100 mb-4">
                 Member Resources
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-6">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                 The members portal contains important information about club events,
                 activities, rules and regulations, and fishing and hunting updates
                 for Loveland Lake.
@@ -137,7 +137,7 @@ export default function HomePage() {
                   'Club news & announcements',
                   'Rules & regulations',
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-gray-700">
+                  <li key={item} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
                     <svg className="h-4 w-4 text-forest-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
@@ -154,22 +154,22 @@ export default function HomePage() {
       </section>
 
       {/* Quick cards */}
-      <section className="py-16 bg-cream">
+      <section className="py-16 bg-cream dark:bg-forest-950">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="section-heading mb-3">Explore the Club</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">
+            <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
               Everything you need to know about Berthoud Sportsman&apos;s Club.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {quickCards.map(({ icon, title, desc, href, cta }) => (
               <Link key={href} href={href} className="card p-6 flex flex-col group">
-                <div className="text-forest-600 group-hover:text-gold-500 transition-colors mb-4">
+                <div className="text-forest-600 dark:text-forest-400 group-hover:text-gold-500 transition-colors mb-4">
                   {icon}
                 </div>
-                <h3 className="font-serif text-lg font-bold text-forest-900 mb-2">{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed flex-1">{desc}</p>
+                <h3 className="font-serif text-lg font-bold text-forest-900 dark:text-forest-100 mb-2">{title}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed flex-1">{desc}</p>
                 <span className="mt-4 text-sm font-semibold text-gold-600 group-hover:text-gold-700 transition-colors">
                   {cta} &rarr;
                 </span>

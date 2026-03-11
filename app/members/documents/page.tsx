@@ -17,11 +17,11 @@ export default async function DocumentsPage() {
   const forms = docs.filter((d) => d.category === 'form')
 
   return (
-    <div className="bg-cream min-h-[calc(100vh-4rem)] py-12">
+    <div className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
         <div className="mb-8">
-          <Link href="/members/dashboard" className="text-sm text-forest-600 hover:text-gold-600">
+          <Link href="/members/dashboard" className="text-sm text-forest-600 dark:text-forest-400 hover:text-gold-600 dark:hover:text-gold-400">
             ← Dashboard
           </Link>
           <h1 className="section-heading mt-2">Documents &amp; Forms</h1>
@@ -31,20 +31,20 @@ export default async function DocumentsPage() {
 
           {handbooks.length > 0 && (
             <div>
-              <h2 className="font-serif text-xl font-bold text-forest-900 mb-3">Handbook &amp; Plans</h2>
+              <h2 className="font-serif text-xl font-bold text-forest-900 dark:text-forest-100 mb-3">Handbook &amp; Plans</h2>
               <DocList docs={handbooks} />
             </div>
           )}
 
           {forms.length > 0 && (
             <div>
-              <h2 className="font-serif text-xl font-bold text-forest-900 mb-3">Forms</h2>
+              <h2 className="font-serif text-xl font-bold text-forest-900 dark:text-forest-100 mb-3">Forms</h2>
               <DocList docs={forms} />
             </div>
           )}
 
           {docs.length === 0 && (
-            <p className="text-gray-500 text-sm">Documents are being uploaded.</p>
+            <p className="text-gray-500 dark:text-gray-400 text-sm">Documents are being uploaded.</p>
           )}
 
         </div>
@@ -71,12 +71,12 @@ function DocList({ docs }: { docs: Array<{ id: number; title: string; blobUrl: s
             </svg>
           </div>
           <div className="flex-1">
-            <p className="font-semibold text-forest-900 group-hover:text-forest-700 text-sm">
+            <p className="font-semibold text-forest-900 dark:text-forest-100 group-hover:text-forest-700 dark:group-hover:text-forest-300 text-sm">
               {doc.title}
             </p>
-            <p className="text-xs text-gray-400 mt-0.5">PDF — click to open</p>
+            <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">PDF — click to open</p>
           </div>
-          <svg className="h-4 w-4 text-gray-400 shrink-0 group-hover:text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-4 w-4 text-gray-400 dark:text-gray-500 shrink-0 group-hover:text-forest-600 dark:group-hover:text-forest-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
           </svg>
         </a>

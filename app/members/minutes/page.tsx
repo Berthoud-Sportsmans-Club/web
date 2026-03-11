@@ -24,26 +24,26 @@ export default async function MinutesPage() {
   const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a))
 
   return (
-    <div className="bg-cream min-h-[calc(100vh-4rem)] py-12">
+    <div className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
         <div className="mb-8">
-          <Link href="/members/dashboard" className="text-sm text-forest-600 hover:text-gold-600">
+          <Link href="/members/dashboard" className="text-sm text-forest-600 dark:text-forest-400 hover:text-gold-600 dark:hover:text-gold-400">
             ← Dashboard
           </Link>
           <h1 className="section-heading mt-2">Meeting Minutes</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
             {minutes.length > 0 ? `${minutes.length} documents, ${years[years.length - 1]}–${years[0]}` : 'Archive loading…'}
           </p>
         </div>
 
         {minutes.length === 0 ? (
-          <p className="text-gray-500 text-sm">No minutes have been uploaded yet.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">No minutes have been uploaded yet.</p>
         ) : (
           <div className="space-y-8">
             {years.map((year) => (
               <div key={year}>
-                <h2 className="font-serif text-2xl font-bold text-forest-900 mb-3">{year}</h2>
+                <h2 className="font-serif text-2xl font-bold text-forest-900 dark:text-forest-100 mb-3">{year}</h2>
                 <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                   {byYear[year].map((doc) => (
                     <a
@@ -57,7 +57,7 @@ export default async function MinutesPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                           d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                       </svg>
-                      <span className="text-sm text-forest-900 group-hover:text-forest-700 leading-snug">
+                      <span className="text-sm text-forest-900 dark:text-forest-100 group-hover:text-forest-700 dark:group-hover:text-forest-300 leading-snug">
                         {doc.title}
                       </span>
                     </a>

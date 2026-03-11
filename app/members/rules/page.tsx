@@ -27,11 +27,11 @@ const rules = [
 
 export default function RulesPage() {
   return (
-    <div className="bg-cream min-h-[calc(100vh-4rem)] py-12">
+    <div className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
         <div className="mb-8">
-          <Link href="/members/dashboard" className="text-sm text-forest-600 hover:text-gold-600">
+          <Link href="/members/dashboard" className="text-sm text-forest-600 dark:text-forest-400 hover:text-gold-600 dark:hover:text-gold-400">
             ← Dashboard
           </Link>
           <h1 className="section-heading mt-2">Fishing Rules &amp; Regulations</h1>
@@ -45,13 +45,13 @@ export default function RulesPage() {
                   <span className="shrink-0 mt-0.5 h-6 w-6 rounded-full bg-forest-900 text-white text-xs font-bold flex items-center justify-center">
                     {i + 1}
                   </span>
-                  <p className="text-gray-700 text-sm leading-relaxed">{rule}</p>
+                  <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed">{rule}</p>
                 </li>
               ))}
             </ol>
           </div>
 
-          <p className="mt-4 text-xs text-gray-400 text-center">
+          <p className="mt-4 text-xs text-gray-400 dark:text-gray-500 text-center">
             Specific fish size and bag limits are posted on the lake sign and may change each season.
           </p>
         </div>

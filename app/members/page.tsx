@@ -33,7 +33,7 @@ export default function MembersPage() {
   }
 
   return (
-    <section className="bg-cream min-h-[calc(100vh-4rem)] flex items-center justify-center py-16 px-4">
+    <section className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] flex items-center justify-center py-16 px-4">
       <div className="w-full max-w-md">
 
         <div className="flex justify-center mb-6">
@@ -46,17 +46,17 @@ export default function MembersPage() {
         </div>
 
         <div className="card p-8 text-center">
-          <h1 className="font-serif text-2xl font-bold text-forest-900 mb-2">
+          <h1 className="font-serif text-2xl font-bold text-forest-900 dark:text-forest-100 mb-2">
             Members Portal
           </h1>
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">
             Enter your member code to access club documents, meeting minutes,
             board contacts, and more.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4 text-left">
             <div>
-              <label htmlFor="code" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="code" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Member Code
               </label>
               <input
@@ -65,7 +65,8 @@ export default function MembersPage() {
                 name="code"
                 required
                 autoComplete="current-password"
-                className="w-full rounded-md border border-gray-200 px-3 py-2 text-sm
+                className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
+                           bg-white dark:bg-forest-700 text-gray-900 dark:text-gray-100
                            focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-transparent"
               />
             </div>

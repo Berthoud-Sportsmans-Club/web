@@ -88,12 +88,12 @@ const sections = [
 
 export default function DashboardPage() {
   return (
-    <div className="bg-cream min-h-[calc(100vh-4rem)] py-12">
+    <div className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
         <div className="mb-10">
           <h1 className="section-heading mb-2">Member Dashboard</h1>
-          <p className="text-gray-600">Welcome back. Select a section below to get started.</p>
+          <p className="text-gray-600 dark:text-gray-300">Welcome back. Select a section below to get started.</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -105,10 +105,10 @@ export default function DashboardPage() {
                 {s.icon}
               </div>
               <div>
-                <h2 className="font-serif font-bold text-forest-900 text-lg leading-tight mb-1">
+                <h2 className="font-serif font-bold text-forest-900 dark:text-forest-100 text-lg leading-tight mb-1">
                   {s.label}
                 </h2>
-                <p className="text-sm text-gray-500 leading-snug">{s.desc}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-snug">{s.desc}</p>
               </div>
             </Link>
           ))}
