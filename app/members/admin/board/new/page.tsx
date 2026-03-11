@@ -69,7 +69,7 @@ export default function NewBoardMemberPage() {
   )
 }
 
-export function BoardMemberFields({ defaults }: { defaults?: Record<string, string | number | null> }) {
+function BoardMemberFields({ defaults }: { defaults?: Record<string, string | number | null> }) {
   return (
     <>
       <Field name="name" label="Name" required defaultValue={defaults?.name as string} />
