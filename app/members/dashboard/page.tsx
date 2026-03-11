@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type React from 'react'
 import Link from 'next/link'
 import { cookies } from 'next/headers'
 import LogoutButton from '@/components/LogoutButton'
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   title: 'Member Dashboard – BSC',
 }
 
-const sections = [
+const sections: { href: string; label: string; desc: string; icon: React.ReactNode; external?: boolean }[] = [
   {
     href: '/members/welcome',
     label: 'Welcome & Info',
@@ -64,6 +65,17 @@ const sections = [
     ),
   },
   {
+    href: 'https://www.facebook.com/share/g/18R6gB8LLx/?mibextid=wwXIfr',
+    label: 'Facebook Group',
+    desc: 'Private club group — announcements, photos, discussion',
+    external: true,
+    icon: (
+      <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
+      </svg>
+    ),
+  },
+  {
     href: '/members/minutes',
     label: 'Meeting Minutes',
     desc: 'Full archive 2012–2025, grouped by year',
@@ -101,7 +113,8 @@ export default async function DashboardPage() {
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {sections.map((s) => (
-            <Link key={s.href} href={s.href} className="card p-6 flex gap-4 items-start group">
+            <Link key={s.href} href={s.href} className="card p-6 flex gap-4 items-start group"
+              {...(s.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
               <div className="shrink-0 h-12 w-12 rounded-lg bg-forest-900 text-gold-400
                               flex items-center justify-center
                               group-hover:bg-forest-800 transition-colors">
