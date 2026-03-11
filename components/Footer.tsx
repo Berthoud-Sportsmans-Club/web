@@ -12,6 +12,7 @@ const externalLinks = [
   { href: 'https://cpw.state.co.us', label: 'Colorado Parks & Wildlife' },
   { href: 'https://www.coloradofishingforum.com', label: 'Colorado Fishing Forum' },
   { href: 'https://berthoudcolorado.gov', label: 'Berthoud Area Chamber of Commerce' },
+  { href: 'https://www.facebook.com/groups/720890593654375', label: 'BSC on Facebook' },
 ]
 
 export default function Footer() {
