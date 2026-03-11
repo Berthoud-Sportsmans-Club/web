@@ -195,7 +195,6 @@ export default function HomePage() {
               { label: 'Colorado Parks & Wildlife', href: 'https://cpw.state.co.us' },
               { label: 'Colorado Fishing Forum', href: 'https://www.coloradofishingforum.com' },
               { label: 'Berthoud Area Chamber of Commerce', href: 'https://berthoudcolorado.gov' },
-              { label: 'BSC on Facebook', href: 'https://www.facebook.com/groups/720890593654375' },
             ].map(({ label, href }) => (
               <a
                 key={href}
