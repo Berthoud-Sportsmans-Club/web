@@ -78,8 +78,18 @@ export default function AboutPage() {
                     has a quality experience on the water and in the field.
                   </p>
                   <p>
-                    Interested in joining? Contact us to learn about current availability and
-                    the membership application process.
+                    Applicants must be at least <strong>21 years of age</strong>. Residents of the
+                    80513 zip code receive priority placement on the waiting list.
+                  </p>
+                  <p>
+                    Each candidate requires one <strong>primary endorser</strong> who must reside in 80513 and
+                    one <strong>secondary endorser</strong> with voting privileges in the club. The current
+                    waiting list is approximately <strong>4 years</strong> at the current retention rate.
+                  </p>
+                  <p>
+                    Applications are processed in the order received. Successful applicants are elected
+                    by vote at the annual meeting. Initiation fee and annual dues are payable within one
+                    week of election.
                   </p>
                 </div>
                 <a
