@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import ContactForm from './ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact Us',
@@ -103,103 +104,7 @@ export default function ContactPage() {
             </div>
 
             {/* Contact form */}
-            <div className="card p-8">
-              <h2 className="font-serif text-2xl font-bold text-forest-900 dark:text-forest-100 mb-6">
-                Send a Message
-              </h2>
-              <form className="space-y-5">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      required
-                      className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
-                                 bg-white dark:bg-forest-700 text-gray-900 dark:text-gray-100
-                                 focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-transparent"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      required
-                      className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
-                                 bg-white dark:bg-forest-700 text-gray-900 dark:text-gray-100
-                                 focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
-                               bg-white dark:bg-forest-700 text-gray-900 dark:text-gray-100
-                               focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                    Subject
-                  </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
-                               bg-white dark:bg-forest-700 text-gray-900 dark:text-gray-100
-                               focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-transparent"
-                  >
-                    <option value="">Select a topic…</option>
-                    <option value="membership">Membership Inquiry</option>
-                    <option value="events">Events & Calendar</option>
-                    <option value="general">General Question</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    required
-                    className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
-                               bg-white dark:bg-forest-700 text-gray-900 dark:text-gray-100
-                               focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-transparent resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn-primary w-full justify-center"
-                  style={{ background: 'rgb(201 132 32)' }}
-                >
-                  Send Message
-                </button>
-                <p className="text-xs text-gray-400 dark:text-gray-500 text-center">
-                  We&apos;ll get back to you as soon as possible.
-                </p>
-              </form>
-            </div>
+            <ContactForm />
           </div>
         </div>
       </section>
