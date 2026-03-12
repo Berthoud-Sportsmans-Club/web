@@ -5,10 +5,15 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const isAdmin = request.cookies.get('bsc_admin')?.value === '1'
   const isMember = request.cookies.get('bsc_member')?.value === '1'
+  const mustChangePw = request.cookies.get('bsc_admin_pwchange')?.value === '1'
 
   // Admin sub-routes: require bsc_admin
   if (pathname.startsWith('/members/admin/')) {
     if (!isAdmin) return NextResponse.redirect(new URL('/members/admin', request.url))
+    // Force password change before accessing anything else
+    if (mustChangePw && pathname !== '/members/admin/change-password') {
+      return NextResponse.redirect(new URL('/members/admin/change-password', request.url))
+    }
     return NextResponse.next()
   }
 

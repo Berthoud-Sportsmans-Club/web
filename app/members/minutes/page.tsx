@@ -4,6 +4,7 @@ import { db } from '@/db/client'
 import { documents } from '@/db/schema'
 import { eq, desc } from 'drizzle-orm'
 
+export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: 'Meeting Minutes – BSC Members' }
 
 export default async function MinutesPage() {

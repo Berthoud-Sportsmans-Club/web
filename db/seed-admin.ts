@@ -31,7 +31,7 @@ async function main() {
   }
 
   const passwordHash = await bcrypt.hash(password, 12)
-  await db.insert(admins).values({ username, passwordHash })
+  await db.insert(admins).values({ username, passwordHash, mustChangePassword: true })
   console.log(`Admin "${username}" created.`)
 }
 

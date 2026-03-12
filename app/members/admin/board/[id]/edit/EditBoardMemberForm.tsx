@@ -24,12 +24,12 @@ export default function EditBoardMemberForm({ member }: { member: Member }) {
     setLoading(true)
 
     const form = e.currentTarget
+    const type = (form.elements.namedItem('type') as HTMLSelectElement).value
     const body = {
       name: (form.elements.namedItem('name') as HTMLInputElement).value.trim(),
       role: (form.elements.namedItem('role') as HTMLInputElement).value.trim(),
-      department: (form.elements.namedItem('department') as HTMLInputElement).value.trim() || null,
+      department: type === 'director' ? 'Director' : null,
       phone: (form.elements.namedItem('phone') as HTMLInputElement).value.trim() || null,
-      sortOrder: Number((form.elements.namedItem('sortOrder') as HTMLInputElement).value),
     }
 
     try {
@@ -39,6 +39,7 @@ export default function EditBoardMemberForm({ member }: { member: Member }) {
         body: JSON.stringify(body),
       })
       if (res.ok) {
+        router.refresh()
         router.push('/members/admin/board')
       } else {
         const data = await res.json()
@@ -63,11 +64,24 @@ export default function EditBoardMemberForm({ member }: { member: Member }) {
         </div>
 
         <form onSubmit={handleSubmit} className="card p-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+              Type<span className="text-red-500 ml-0.5">*</span>
+            </label>
+            <select
+              name="type"
+              defaultValue={member.department != null ? 'director' : 'officer'}
+              className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
+                         bg-white dark:bg-forest-700 text-gray-900 dark:text-gray-100
+                         focus:outline-none focus:ring-2 focus:ring-forest-400"
+            >
+              <option value="officer">Officer</option>
+              <option value="director">Director</option>
+            </select>
+          </div>
           <Field name="name" label="Name" required defaultValue={member.name} />
           <Field name="role" label="Role" required placeholder="e.g. President, Fishing Director" defaultValue={member.role} />
-          <Field name="department" label="Department" placeholder="Leave blank for officers" defaultValue={member.department ?? ''} />
           <Field name="phone" label="Phone" type="tel" defaultValue={member.phone ?? ''} />
-          <Field name="sortOrder" label="Sort Order" type="number" required defaultValue={String(member.sortOrder)} />
 
           {error && <p className="text-sm text-red-600">{error}</p>}
           <div className="flex gap-3 pt-2">

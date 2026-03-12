@@ -1,4 +1,4 @@
-import { pgTable, serial, text, date, timestamp, integer } from 'drizzle-orm/pg-core'
+import { pgTable, serial, text, date, timestamp, integer, boolean } from 'drizzle-orm/pg-core'
 import { sql } from 'drizzle-orm'
 
 export const documents = pgTable('documents', {
@@ -31,5 +31,6 @@ export const admins = pgTable('admins', {
   id: serial('id').primaryKey(),
   username: text('username').notNull().unique(),
   passwordHash: text('password_hash').notNull(),
+  mustChangePassword: boolean('must_change_password').notNull().default(false),
   createdAt: timestamp('created_at').default(sql`now()`),
 })

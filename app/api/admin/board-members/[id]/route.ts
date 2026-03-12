@@ -18,11 +18,11 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 
   const { id } = await params
   const body = await request.json()
-  const { name, role, department, phone, sortOrder } = body
+  const { name, role, department, phone } = body
 
   const [row] = await db
     .update(boardMembers)
-    .set({ name, role, department: department || null, phone: phone || null, sortOrder: Number(sortOrder) })
+    .set({ name, role, department: department || null, phone: phone || null })
     .where(eq(boardMembers.id, Number(id)))
     .returning()
 

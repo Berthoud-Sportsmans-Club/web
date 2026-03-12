@@ -5,6 +5,7 @@ import { drizzle } from 'drizzle-orm/neon-http'
 import { volunteerContacts } from '@/db/schema'
 import DeleteButton from '@/components/DeleteButton'
 
+export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: 'Admin: Volunteers – BSC' }
 
 const sql = neon(process.env.DATABASE_URL!)
