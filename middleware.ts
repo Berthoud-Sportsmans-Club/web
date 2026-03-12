@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { neon } from '@neondatabase/serverless'
+import { hashMemberCode } from '@/lib/member-auth'
 
 async function getMemberHash(): Promise<string | null> {
   try {
@@ -8,10 +9,7 @@ async function getMemberHash(): Promise<string | null> {
     const rows = await sql`SELECT value FROM settings WHERE key = 'member_code' LIMIT 1`
     const code = rows[0]?.value as string | undefined
     if (!code) return null
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(code))
-    return Array.from(new Uint8Array(buf))
-      .map((b) => b.toString(16).padStart(2, '0'))
-      .join('')
+    return await hashMemberCode(code)
   } catch {
     return null
   }
@@ -23,15 +21,7 @@ export async function middleware(request: NextRequest) {
   const isAdmin = request.cookies.get('bsc_admin')?.value === '1'
   const mustChangePw = request.cookies.get('bsc_admin_pwchange')?.value === '1'
 
-  // Validate member session by comparing cookie hash to current member_code hash.
-  // Fails open (treats as valid) if DB is unreachable, to avoid locking everyone out.
-  let isMember = false
-  if (memberCookie) {
-    const expectedHash = await getMemberHash()
-    isMember = expectedHash === null ? memberCookie.length === 64 : memberCookie === expectedHash
-  }
-
-  // Admin sub-routes: require bsc_admin
+  // Admin sub-routes: require bsc_admin — no member hash check needed
   if (pathname.startsWith('/members/admin/')) {
     if (!isAdmin) return NextResponse.redirect(new URL('/members/admin', request.url))
     if (mustChangePw && pathname !== '/members/admin/change-password') {
@@ -40,10 +30,18 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Admin login page: redirect to dashboard if already admin
+  // Admin login page: redirect to dashboard if already admin — no member hash check needed
   if (pathname === '/members/admin') {
     if (isAdmin) return NextResponse.redirect(new URL('/members/admin/dashboard', request.url))
     return NextResponse.next()
+  }
+
+  // For all remaining /members routes, validate the member session hash.
+  // Fails closed: if the DB is unreachable, the cookie is treated as invalid.
+  let isMember = false
+  if (memberCookie) {
+    const expectedHash = await getMemberHash()
+    isMember = expectedHash !== null && memberCookie === expectedHash
   }
 
   // Member login page: clear stale cookie if present, then let through

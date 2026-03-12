@@ -19,11 +19,19 @@ export default function SettingsPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/api/admin/settings')
-      .then((r) => r.json())
-      .then((rows: Setting[]) => {
-        setSettings(Object.fromEntries(rows.map((r) => [r.key, r.value])))
-      })
+    let cancelled = false
+    async function load() {
+      try {
+        const res = await fetch('/api/admin/settings')
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
+        const rows = (await res.json()) as Setting[]
+        if (!cancelled) setSettings(Object.fromEntries(rows.map((r) => [r.key, r.value])))
+      } catch {
+        if (!cancelled) setError('Failed to load settings. Please refresh the page.')
+      }
+    }
+    load()
+    return () => { cancelled = true }
   }, [])
 
   async function handleSave(key: string) {

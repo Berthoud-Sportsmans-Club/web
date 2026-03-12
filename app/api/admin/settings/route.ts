@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { db } from '@/db/client'
 import { settings } from '@/db/schema'
-import { eq, sql } from 'drizzle-orm'
+import { sql } from 'drizzle-orm'
 
 async function requireAdmin() {
   const cookieStore = await cookies()
@@ -25,9 +25,14 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  const ALLOWED_KEYS = new Set(['member_code', 'gate_code_bike_park', 'gate_code_green_emergency', 'gate_code_east'])
+
   const { key, value } = await request.json()
   if (!key || value === undefined) {
     return NextResponse.json({ error: 'key and value are required' }, { status: 400 })
+  }
+  if (!ALLOWED_KEYS.has(key)) {
+    return NextResponse.json({ error: 'Invalid setting key' }, { status: 400 })
   }
 
   await db

@@ -39,11 +39,13 @@ export async function POST(request: Request) {
     .from(settings)
     .where(eq(settings.key, 'member_code'))
     .limit(1)
-  const memberCode = memberRow[0]?.value ?? ''
-  const memberHash = await hashMemberCode(memberCode)
+  const memberCode = memberRow[0]?.value
 
   const cookieStore = await cookies()
-  cookieStore.set('bsc_member', memberHash, COOKIE_OPTS)
+  if (memberCode) {
+    const memberHash = await hashMemberCode(memberCode)
+    cookieStore.set('bsc_member', memberHash, COOKIE_OPTS)
+  }
   cookieStore.set('bsc_admin', '1', COOKIE_OPTS)
   cookieStore.set('bsc_admin_user', admin.username, COOKIE_OPTS)
 
