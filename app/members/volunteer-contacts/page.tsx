@@ -2,12 +2,16 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { db } from '@/db/client'
 import { volunteerContacts } from '@/db/schema'
+import { asc } from 'drizzle-orm'
 
 export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: 'Volunteer Contacts – BSC Members' }
 
 export default async function VolunteerContactsPage() {
-  const contacts = await db.select().from(volunteerContacts)
+  const contacts = await db
+    .select()
+    .from(volunteerContacts)
+    .orderBy(asc(volunteerContacts.program), asc(volunteerContacts.director))
 
   return (
     <div className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] py-12">
