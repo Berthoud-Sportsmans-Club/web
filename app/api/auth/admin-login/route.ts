@@ -1,13 +1,10 @@
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-import { neon } from '@neondatabase/serverless'
-import { drizzle } from 'drizzle-orm/neon-http'
-import { admins } from '@/db/schema'
+import { db } from '@/db/client'
+import { admins, settings } from '@/db/schema'
 import { eq } from 'drizzle-orm'
-
-const sql = neon(process.env.DATABASE_URL!)
-const db = drizzle(sql)
+import { hashMemberCode } from '@/lib/member-auth'
 
 const COOKIE_OPTS = {
   httpOnly: true,
@@ -37,8 +34,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
   }
 
+  const memberRow = await db
+    .select({ value: settings.value })
+    .from(settings)
+    .where(eq(settings.key, 'member_code'))
+    .limit(1)
+  const memberCode = memberRow[0]?.value
+
   const cookieStore = await cookies()
-  cookieStore.set('bsc_member', '1', COOKIE_OPTS)
+  if (memberCode) {
+    const memberHash = await hashMemberCode(memberCode)
+    cookieStore.set('bsc_member', memberHash, COOKIE_OPTS)
+  }
   cookieStore.set('bsc_admin', '1', COOKIE_OPTS)
   cookieStore.set('bsc_admin_user', admin.username, COOKIE_OPTS)
 

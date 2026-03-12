@@ -34,3 +34,9 @@ export const admins = pgTable('admins', {
   mustChangePassword: boolean('must_change_password').notNull().default(false),
   createdAt: timestamp('created_at').default(sql`now()`),
 })
+
+export const settings = pgTable('settings', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamp('updated_at').default(sql`now()`),
+})
