@@ -39,6 +39,7 @@ export default function EditBoardMemberForm({ member }: { member: Member }) {
         body: JSON.stringify(body),
       })
       if (res.ok) {
+        router.refresh()
         router.push('/members/admin/board')
       } else {
         const data = await res.json()
