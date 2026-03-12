@@ -11,6 +11,9 @@ const subjectLabels: Record<string, string> = {
 }
 
 function getRecipient(subject: string): string {
+  if (!Object.prototype.hasOwnProperty.call(subjectLabels, subject)) {
+    return process.env.CONTACT_EMAIL_DEFAULT || ''
+  }
   const envKey = `CONTACT_EMAIL_${subject.toUpperCase()}`
   return process.env[envKey] || process.env.CONTACT_EMAIL_DEFAULT || ''
 }
@@ -23,20 +26,31 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 })
   }
 
-  const { firstName, lastName, email, subject, message, company } = body as Record<string, string>
+  const str = (v: unknown): string => (typeof v === 'string' ? v : '')
+  const firstName = str(body.firstName)
+  const lastName = str(body.lastName)
+  const email = str(body.email)
+  const subject = str(body.subject)
+  const message = str(body.message)
+  const company = str(body.company)
 
   // Honeypot — if filled, silently succeed
   if (company) {
     return NextResponse.json({ success: true })
   }
 
+  if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) {
+    console.error('Missing RESEND_API_KEY or RESEND_FROM_EMAIL environment variable.')
+    return NextResponse.json({ error: 'Contact form is not configured.' }, { status: 500 })
+  }
+
   // Validation
   const missing: string[] = []
-  if (!firstName?.trim()) missing.push('First name')
-  if (!lastName?.trim()) missing.push('Last name')
-  if (!email?.trim()) missing.push('Email')
-  if (!subject?.trim()) missing.push('Subject')
-  if (!message?.trim()) missing.push('Message')
+  if (!firstName.trim()) missing.push('First name')
+  if (!lastName.trim()) missing.push('Last name')
+  if (!email.trim()) missing.push('Email')
+  if (!subject.trim()) missing.push('Subject')
+  if (!message.trim()) missing.push('Message')
 
   if (missing.length > 0) {
     return NextResponse.json(
