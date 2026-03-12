@@ -7,6 +7,7 @@ import { inArray, desc } from 'drizzle-orm'
 import UploadForm from '@/components/UploadForm'
 import DeleteButton from '@/components/DeleteButton'
 
+export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: 'Admin: Documents – BSC' }
 
 const sql = neon(process.env.DATABASE_URL!)

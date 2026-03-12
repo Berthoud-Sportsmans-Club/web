@@ -5,6 +5,7 @@ import { drizzle } from 'drizzle-orm/neon-http'
 import { boardMembers } from '@/db/schema'
 import BoardMemberList from './BoardMemberList'
 
+export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: 'Admin: Board Members – BSC' }
 
 const sql = neon(process.env.DATABASE_URL!)
