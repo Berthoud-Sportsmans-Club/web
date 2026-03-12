@@ -94,6 +94,26 @@ const fish = [
     color: 'bg-slate-50 border-slate-200 dark:bg-slate-900 dark:border-slate-700',
 
   },
+  {
+    name: 'Black Crappie',
+    scientific: 'Pomoxis nigromaculatus',
+    image: '/fish/black-crappie.jpg',
+    description:
+      'A pan-shaped sunfish with irregular black splotches scattered across silver-green sides. Dorsal spines lengthen progressively toward the tail.',
+    features: ['Pan-shaped body', 'Black splotches on silver', 'Long dorsal spines toward tail'],
+    season: 'Spring – Fall',
+    color: 'bg-emerald-50 border-emerald-100 dark:bg-emerald-950 dark:border-emerald-900',
+  },
+  {
+    name: 'Bluegill',
+    scientific: 'Lepomis macrochirus',
+    image: '/fish/bluegill.jpg',
+    description:
+      'A short, deep-bodied sunfish with parallel vertical bars on its sides and long, pointed pectoral fins. Breeding males display blue-tinted fins and a red-orange belly.',
+    features: ['Deep compressed body', 'Parallel vertical bars', 'Long pointed pectoral fins'],
+    season: 'Spring – Fall',
+    color: 'bg-cyan-50 border-cyan-100 dark:bg-cyan-950 dark:border-cyan-900',
+  },
 ]
 
 export default function FishPage() {
