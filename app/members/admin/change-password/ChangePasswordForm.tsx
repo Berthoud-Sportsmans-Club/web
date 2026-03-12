@@ -28,7 +28,7 @@ export default function ChangePasswordForm({ required, username }: { required: b
       const res = await fetch('/api/admin/change-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, currentPassword, newPassword }),
+        body: JSON.stringify({ currentPassword, newPassword }),
       })
       if (res.ok) {
         router.push('/members/admin/dashboard')

@@ -16,9 +16,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const { username, currentPassword, newPassword } = await request.json()
+  const username = cookieStore.get('bsc_admin_user')?.value
+  if (!username) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
 
-  if (!username || !currentPassword || !newPassword) {
+  const { currentPassword, newPassword } = await request.json()
+
+  if (!currentPassword || !newPassword) {
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
   }
 

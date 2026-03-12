@@ -17,7 +17,11 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   if (!await requireAdmin()) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { id } = await params
-  const { direction } = await request.json() as { direction: 'up' | 'down' }
+  const { direction } = await request.json()
+
+  if (direction !== 'up' && direction !== 'down') {
+    return NextResponse.json({ error: 'Invalid direction' }, { status: 400 })
+  }
 
   const all = await db.select().from(boardMembers).orderBy(boardMembers.sortOrder)
   const idx = all.findIndex((m) => m.id === Number(id))

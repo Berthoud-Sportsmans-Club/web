@@ -17,17 +17,23 @@ export default function BoardMemberList({ initialRows }: { initialRows: Member[]
   const [moving, setMoving] = useState<number | null>(null)
   const [confirming, setConfirming] = useState<number | null>(null)
   const [deleting, setDeleting] = useState<number | null>(null)
+  const [deleteError, setDeleteError] = useState<number | null>(null)
 
   async function handleDelete(id: number) {
     setDeleting(id)
+    setDeleteError(null)
     try {
       const res = await fetch(`/api/admin/board-members/${id}`, { method: 'DELETE' })
       if (res.ok) {
         setRows((prev) => prev.filter((r) => r.id !== id))
+        setConfirming(null)
+      } else {
+        setDeleteError(id)
       }
+    } catch {
+      setDeleteError(id)
     } finally {
       setDeleting(null)
-      setConfirming(null)
     }
   }
 
@@ -84,16 +90,18 @@ export default function BoardMemberList({ initialRows }: { initialRows: Member[]
                     disabled={i === 0 || moving === m.id}
                     className="p-1 rounded text-gray-400 hover:text-forest-700 dark:hover:text-forest-300 disabled:opacity-20 disabled:cursor-default transition-colors"
                     title="Move up"
+                    aria-label={`Move ${m.name} up`}
                   >
-                    ▲
+                    <span aria-hidden="true">▲</span>
                   </button>
                   <button
                     onClick={() => move(m.id, 'down')}
                     disabled={i === rows.length - 1 || moving === m.id}
                     className="p-1 rounded text-gray-400 hover:text-forest-700 dark:hover:text-forest-300 disabled:opacity-20 disabled:cursor-default transition-colors"
                     title="Move down"
+                    aria-label={`Move ${m.name} down`}
                   >
-                    ▼
+                    <span aria-hidden="true">▼</span>
                   </button>
                   <Link
                     href={`/members/admin/board/${m.id}/edit`}
@@ -111,11 +119,14 @@ export default function BoardMemberList({ initialRows }: { initialRows: Member[]
                         {deleting === m.id ? '…' : 'Yes'}
                       </button>
                       <button
-                        onClick={() => setConfirming(null)}
+                        onClick={() => { setConfirming(null); setDeleteError(null) }}
                         className="text-xs px-2 py-1 rounded border border-gray-300 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-forest-800/50 transition-colors"
                       >
                         No
                       </button>
+                      {deleteError === m.id && (
+                        <span className="text-xs text-red-600">Failed — try again</span>
+                      )}
                     </>
                   ) : (
                     <button
