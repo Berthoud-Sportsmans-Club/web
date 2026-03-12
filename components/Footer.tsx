@@ -10,8 +10,8 @@ const quickLinks = [
 
 const externalLinks = [
   { href: 'https://cpw.state.co.us', label: 'Colorado Parks & Wildlife' },
-  { href: 'https://www.coloradofishingforum.com', label: 'Colorado Fishing Forum' },
-  { href: 'https://berthoudcolorado.gov', label: 'Berthoud Area Chamber of Commerce' },
+  { href: 'https://www.coloradofisherman.com/', label: 'Colorado Fishing Forum' },
+  { href: 'https://www.berthoudcolorado.com/', label: 'Berthoud Area Chamber of Commerce' },
 ]
 
 export default function Footer() {

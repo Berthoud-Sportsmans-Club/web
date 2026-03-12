@@ -193,8 +193,8 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {[
               { label: 'Colorado Parks & Wildlife', href: 'https://cpw.state.co.us' },
-              { label: 'Colorado Fishing Forum', href: 'https://www.coloradofishingforum.com' },
-              { label: 'Berthoud Area Chamber of Commerce', href: 'https://berthoudcolorado.gov' },
+              { label: 'Colorado Fishing Forum', href: 'https://www.coloradofisherman.com/' },
+              { label: 'Berthoud Area Chamber of Commerce', href: 'https://www.berthoudcolorado.com/' },
             ].map(({ label, href }) => (
               <a
                 key={href}
