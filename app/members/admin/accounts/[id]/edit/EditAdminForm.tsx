@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 interface Admin {
   id: number
-  username: string
+  email: string
 }
 
 export default function EditAdminForm({ admin }: { admin: Admin }) {
@@ -29,8 +29,8 @@ export default function EditAdminForm({ admin }: { admin: Admin }) {
 
     setLoading(true)
     try {
-      const body: { username: string; password?: string } = {
-        username: (form.elements.namedItem('username') as HTMLInputElement).value.trim(),
+      const body: { email: string; password?: string } = {
+        email: (form.elements.namedItem('email') as HTMLInputElement).value.trim(),
       }
       if (password) body.password = password
 
@@ -64,7 +64,7 @@ export default function EditAdminForm({ admin }: { admin: Admin }) {
         </div>
 
         <form onSubmit={handleSubmit} className="card p-6 space-y-4">
-          <Field name="username" label="Username" required defaultValue={admin.username} />
+          <Field name="email" label="Email" type="email" required defaultValue={admin.email} />
 
           <div className="border-t border-parchment dark:border-forest-700 pt-4">
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">

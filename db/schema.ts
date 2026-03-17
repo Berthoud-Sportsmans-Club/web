@@ -29,7 +29,7 @@ export const volunteerContacts = pgTable('volunteer_contacts', {
 
 export const admins = pgTable('admins', {
   id: serial('id').primaryKey(),
-  username: text('username').notNull().unique(),
+  email: text('email').notNull().unique(),
   passwordHash: text('password_hash').notNull(),
   mustChangePassword: boolean('must_change_password').notNull().default(false),
   createdAt: timestamp('created_at').default(sql`now()`),

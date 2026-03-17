@@ -17,7 +17,7 @@ export default async function AdminAccountsPage() {
   const me = cookieStore.get('bsc_admin_user')?.value
 
   const rows = await db
-    .select({ id: admins.id, username: admins.username, createdAt: admins.createdAt })
+    .select({ id: admins.id, email: admins.email, createdAt: admins.createdAt })
     .from(admins)
 
   return (
@@ -49,8 +49,8 @@ export default async function AdminAccountsPage() {
               {rows.map((a) => (
                 <tr key={a.id} className="hover:bg-gray-50 dark:hover:bg-forest-800/50">
                   <td className="px-4 py-3 font-medium text-forest-900 dark:text-forest-100">
-                    {a.username}
-                    {a.username === me && (
+                    {a.email}
+                    {a.email === me && (
                       <span className="ml-2 text-xs text-gold-600 dark:text-gold-400">(you)</span>
                     )}
                   </td>
@@ -62,7 +62,7 @@ export default async function AdminAccountsPage() {
                           className="text-xs px-2 py-1 rounded border border-forest-300 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-forest-800/50 transition-colors">
                       Edit
                     </Link>
-                    {a.username !== me && (
+                    {a.email !== me && (
                       <DeleteButton url={`/api/admin/accounts/${a.id}`} />
                     )}
                   </td>

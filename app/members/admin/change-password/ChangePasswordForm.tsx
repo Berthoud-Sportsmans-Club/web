@@ -13,7 +13,6 @@ export default function ChangePasswordForm({ required, username }: { required: b
     e.preventDefault()
     setError('')
     const form = e.currentTarget
-    const username = (form.elements.namedItem('username') as HTMLInputElement).value.trim()
     const currentPassword = (form.elements.namedItem('currentPassword') as HTMLInputElement).value
     const newPassword = (form.elements.namedItem('newPassword') as HTMLInputElement).value
     const confirmPassword = (form.elements.namedItem('confirmPassword') as HTMLInputElement).value
@@ -68,17 +67,17 @@ export default function ChangePasswordForm({ required, username }: { required: b
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                Username
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+                Email
               </label>
               <input
-                type="text"
-                id="username"
-                name="username"
+                type="email"
+                id="email"
+                name="email"
                 required
                 readOnly
                 defaultValue={username}
-                autoComplete="username"
+                autoComplete="email"
                 className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
                            bg-gray-50 dark:bg-forest-800 text-gray-500 dark:text-gray-400 cursor-default
                            focus:outline-none"

@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   const rows = await db
     .select()
     .from(admins)
-    .where(eq(admins.username, username))
+    .where(eq(admins.email, username))
     .limit(1)
 
   const admin = rows[0]

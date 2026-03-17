@@ -28,7 +28,7 @@ export default function NewAdminPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          username: (form.elements.namedItem('username') as HTMLInputElement).value.trim(),
+          email: (form.elements.namedItem('email') as HTMLInputElement).value.trim(),
           password,
         }),
       })
@@ -57,14 +57,17 @@ export default function NewAdminPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="card p-6 space-y-4">
-          <Field name="username" label="Username" required />
-          <Field name="password" label="Password" type="password" required />
+          <Field name="email" label="Email" type="email" required />
+          <Field name="password" label="Temporary Password" type="password" required />
           <Field name="confirm" label="Confirm Password" type="password" required />
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            An invite email will be sent with login instructions. They will be required to set a new password on first login.
+          </p>
 
           {error && <p className="text-sm text-red-600">{error}</p>}
           <div className="flex gap-3 pt-2">
             <button type="submit" disabled={loading} className="btn-primary disabled:opacity-60">
-              {loading ? 'Creating…' : 'Create Account'}
+              {loading ? 'Creating…' : 'Create & Send Invite'}
             </button>
             <Link href="/members/admin/accounts" className="btn-outline">Cancel</Link>
           </div>

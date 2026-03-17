@@ -14,7 +14,7 @@ async function requireAdmin() {
   return cookieStore.get('bsc_admin')?.value === '1'
 }
 
-async function currentUsername() {
+async function currentEmail() {
   const cookieStore = await cookies()
   return cookieStore.get('bsc_admin_user')?.value
 }
@@ -23,16 +23,16 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   if (!await requireAdmin()) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { id } = await params
-  const { username, password } = await request.json()
+  const { email, password } = await request.json()
 
-  if (!username) {
-    return NextResponse.json({ error: 'Username is required' }, { status: 400 })
+  if (!email) {
+    return NextResponse.json({ error: 'Email is required' }, { status: 400 })
   }
   if (password && password.length < 8) {
     return NextResponse.json({ error: 'Password must be at least 8 characters' }, { status: 400 })
   }
 
-  const updates: { username: string; passwordHash?: string } = { username: username.trim() }
+  const updates: { email: string; passwordHash?: string } = { email: email.trim().toLowerCase() }
   if (password) {
     updates.passwordHash = await bcrypt.hash(password, 12)
   }
@@ -42,12 +42,12 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
       .update(admins)
       .set(updates)
       .where(eq(admins.id, Number(id)))
-      .returning({ id: admins.id, username: admins.username, createdAt: admins.createdAt })
+      .returning({ id: admins.id, email: admins.email, createdAt: admins.createdAt })
 
     if (!row) return NextResponse.json({ error: 'Not found' }, { status: 404 })
     return NextResponse.json(row)
   } catch {
-    return NextResponse.json({ error: 'Username already exists' }, { status: 409 })
+    return NextResponse.json({ error: 'An account with that email already exists' }, { status: 409 })
   }
 }
 
@@ -56,11 +56,10 @@ export async function DELETE(_req: Request, { params }: { params: Promise<{ id: 
 
   const { id } = await params
 
-  // Prevent self-deletion
-  const me = await currentUsername()
+  const me = await currentEmail()
   const rows = await db.select().from(admins).where(eq(admins.id, Number(id))).limit(1)
   if (!rows[0]) return NextResponse.json({ error: 'Not found' }, { status: 404 })
-  if (rows[0].username === me) {
+  if (rows[0].email === me) {
     return NextResponse.json({ error: 'Cannot delete your own account' }, { status: 400 })
   }
 

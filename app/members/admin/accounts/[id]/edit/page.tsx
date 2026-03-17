@@ -11,7 +11,7 @@ const db = drizzle(sql)
 export default async function EditAdminPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const rows = await db
-    .select({ id: admins.id, username: admins.username })
+    .select({ id: admins.id, email: admins.email })
     .from(admins)
     .where(eq(admins.id, Number(id)))
     .limit(1)

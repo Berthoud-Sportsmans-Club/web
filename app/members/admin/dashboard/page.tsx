@@ -54,7 +54,7 @@ const sections = [
   {
     href: '/members/admin/accounts',
     label: 'Admin Accounts',
-    desc: 'Invite admins, update usernames, and reset passwords',
+    desc: 'Invite admins, update emails, and reset passwords',
     icon: (
       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
