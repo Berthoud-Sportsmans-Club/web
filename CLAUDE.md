@@ -2,6 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Git Workflow
+
+**Direct pushes to `main` are blocked by branch protection.** Always work on a feature branch and open a PR.
+
+```bash
+git checkout -b feature/my-feature
+# ... make changes, commit ...
+git push -u origin feature/my-feature
+gh pr create
+```
+
 ## Commands
 
 ```bash

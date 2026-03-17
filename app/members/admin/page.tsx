@@ -13,14 +13,14 @@ export default function AdminLoginPage() {
     setError('')
     setLoading(true)
     const form = e.currentTarget
-    const username = (form.elements.namedItem('username') as HTMLInputElement).value.trim()
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim()
     const password = (form.elements.namedItem('password') as HTMLInputElement).value
 
     try {
       const res = await fetch('/api/auth/admin-login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       })
       if (res.ok) {
         const data = await res.json()
@@ -59,15 +59,15 @@ export default function AdminLoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4 text-left">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                Username
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+                Email
               </label>
               <input
-                type="text"
-                id="username"
-                name="username"
+                type="email"
+                id="email"
+                name="email"
                 required
-                autoComplete="username"
+                autoComplete="email"
                 className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
                            bg-white dark:bg-forest-700 text-gray-900 dark:text-gray-100
                            focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent"
