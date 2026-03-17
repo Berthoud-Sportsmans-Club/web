@@ -16,8 +16,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const username = cookieStore.get('bsc_admin_user')?.value
-  if (!username) {
+  const email = cookieStore.get('bsc_admin_user')?.value
+  if (!email) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   const rows = await db
     .select()
     .from(admins)
-    .where(eq(admins.email, username))
+    .where(eq(admins.email, email))
     .limit(1)
 
   const admin = rows[0]

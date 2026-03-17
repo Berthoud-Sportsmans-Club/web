@@ -21,10 +21,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
   }
 
+  const normalizedEmail = email.trim().toLowerCase()
+
   const rows = await db
     .select()
     .from(admins)
-    .where(eq(admins.email, email))
+    .where(eq(admins.email, normalizedEmail))
     .limit(1)
 
   const admin = rows[0]
@@ -47,7 +49,7 @@ export async function POST(request: Request) {
     cookieStore.set('bsc_member', memberHash, COOKIE_OPTS)
   }
   cookieStore.set('bsc_admin', '1', COOKIE_OPTS)
-  cookieStore.set('bsc_admin_user', admin.email, COOKIE_OPTS)
+  cookieStore.set('bsc_admin_user', normalizedEmail, COOKIE_OPTS)
 
   if (admin.mustChangePassword) {
     cookieStore.set('bsc_admin_pwchange', '1', COOKIE_OPTS)

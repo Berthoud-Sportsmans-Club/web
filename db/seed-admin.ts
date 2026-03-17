@@ -19,20 +19,22 @@ async function main() {
     process.exit(1)
   }
 
+  const normalizedEmail = email.trim().toLowerCase()
+
   const existing = await db
     .select({ id: admins.id })
     .from(admins)
-    .where(eq(admins.email, email))
+    .where(eq(admins.email, normalizedEmail))
     .limit(1)
 
   if (existing.length > 0) {
-    console.log(`Admin "${email}" already exists — skipping.`)
+    console.log(`Admin "${normalizedEmail}" already exists — skipping.`)
     return
   }
 
   const passwordHash = await bcrypt.hash(password, 12)
-  await db.insert(admins).values({ email, passwordHash, mustChangePassword: true })
-  console.log(`Admin "${email}" created.`)
+  await db.insert(admins).values({ email: normalizedEmail, passwordHash, mustChangePassword: true })
+  console.log(`Admin "${normalizedEmail}" created.`)
 }
 
 main().catch((err) => {

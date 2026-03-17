@@ -15,6 +15,10 @@ async function requireAdmin() {
   return cookieStore.get('bsc_admin')?.value === '1'
 }
 
+function isUniqueViolation(err: unknown): boolean {
+  return typeof err === 'object' && err !== null && (err as { code?: string }).code === '23505'
+}
+
 export async function GET() {
   if (!await requireAdmin()) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   const rows = await db
@@ -35,16 +39,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Password must be at least 8 characters' }, { status: 400 })
   }
 
+  const normalizedEmail = email.trim().toLowerCase()
   const passwordHash = await bcrypt.hash(password, 12)
 
   let row: { id: number; email: string; createdAt: Date | null }
   try {
     ;[row] = await db
       .insert(admins)
-      .values({ email: email.trim().toLowerCase(), passwordHash, mustChangePassword: true })
+      .values({ email: normalizedEmail, passwordHash, mustChangePassword: true })
       .returning({ id: admins.id, email: admins.email, createdAt: admins.createdAt })
-  } catch {
-    return NextResponse.json({ error: 'An account with that email already exists' }, { status: 409 })
+  } catch (err) {
+    if (isUniqueViolation(err)) {
+      return NextResponse.json({ error: 'An account with that email already exists' }, { status: 409 })
+    }
+    throw err
   }
 
   // Send invite email (best-effort — don't fail the request if email fails)
@@ -53,13 +61,13 @@ export async function POST(request: Request) {
     try {
       await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL,
-        to: email.trim(),
+        to: normalizedEmail,
         subject: 'Your Berthoud Sportsman\'s Club admin account',
         text: [
           'You\'ve been invited to manage the Berthoud Sportsman\'s Club website.',
           '',
           `Sign in at: ${siteUrl}/members/admin`,
-          `Email: ${email.trim()}`,
+          `Email: ${normalizedEmail}`,
           `Temporary password: ${password}`,
           '',
           'You will be prompted to set a new password on your first login.',

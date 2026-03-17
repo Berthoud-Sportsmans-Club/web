@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-export default function ChangePasswordForm({ required, username }: { required: boolean; username: string }) {
+export default function ChangePasswordForm({ required, email }: { required: boolean; email: string }) {
   const router = useRouter()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -76,7 +76,7 @@ export default function ChangePasswordForm({ required, username }: { required: b
                 name="email"
                 required
                 readOnly
-                defaultValue={username}
+                defaultValue={email}
                 autoComplete="email"
                 className="w-full rounded-md border border-gray-200 dark:border-forest-600 px-3 py-2 text-sm
                            bg-gray-50 dark:bg-forest-800 text-gray-500 dark:text-gray-400 cursor-default

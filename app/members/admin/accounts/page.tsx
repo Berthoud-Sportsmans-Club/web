@@ -40,7 +40,7 @@ export default async function AdminAccountsPage() {
           <table className="w-full text-sm">
             <thead className="bg-forest-900 text-white">
               <tr>
-                <th className="px-4 py-3 text-left font-medium">Username</th>
+                <th className="px-4 py-3 text-left font-medium">Email</th>
                 <th className="px-4 py-3 text-left font-medium hidden sm:table-cell">Created</th>
                 <th className="px-4 py-3 text-left font-medium w-28">Actions</th>
               </tr>
