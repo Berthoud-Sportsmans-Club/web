@@ -5,19 +5,14 @@ import { neon } from '@neondatabase/serverless'
 import { drizzle } from 'drizzle-orm/neon-http'
 import { admins } from '@/db/schema'
 import { eq } from 'drizzle-orm'
+import { getAuthenticatedAdmin } from '@/lib/admin-auth'
 
 const sql = neon(process.env.DATABASE_URL!)
 const db = drizzle(sql)
 
 export async function POST(request: Request) {
-  const cookieStore = await cookies()
-  const isAdmin = cookieStore.get('bsc_admin')?.value === '1'
-  if (!isAdmin) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
-  const email = cookieStore.get('bsc_admin_user')?.value
-  if (!email) {
+  const currentAdmin = await getAuthenticatedAdmin()
+  if (!currentAdmin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -34,7 +29,7 @@ export async function POST(request: Request) {
   const rows = await db
     .select()
     .from(admins)
-    .where(eq(admins.email, email))
+    .where(eq(admins.id, currentAdmin.id))
     .limit(1)
 
   const admin = rows[0]
@@ -50,6 +45,7 @@ export async function POST(request: Request) {
     .set({ passwordHash, mustChangePassword: false })
     .where(eq(admins.id, admin.id))
 
+  const cookieStore = await cookies()
   cookieStore.delete('bsc_admin_pwchange')
 
   return NextResponse.json({ ok: true })

@@ -1,19 +1,14 @@
-import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { Resend } from 'resend'
 import { neon } from '@neondatabase/serverless'
 import { drizzle } from 'drizzle-orm/neon-http'
 import { admins } from '@/db/schema'
+import { requireAdmin } from '@/lib/admin-auth'
 
 const sql = neon(process.env.DATABASE_URL!)
 const db = drizzle(sql)
 const resend = new Resend(process.env.RESEND_API_KEY)
-
-async function requireAdmin() {
-  const cookieStore = await cookies()
-  return cookieStore.get('bsc_admin')?.value === '1'
-}
 
 function isUniqueViolation(err: unknown): boolean {
   return typeof err === 'object' && err !== null && (err as { code?: string }).code === '23505'

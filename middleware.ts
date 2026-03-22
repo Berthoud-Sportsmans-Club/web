@@ -15,10 +15,22 @@ async function getMemberHash(): Promise<string | null> {
   }
 }
 
+async function isValidAdminSession(token: string | undefined): Promise<boolean> {
+  if (!token) return false
+  try {
+    const sql = neon(process.env.DATABASE_URL!)
+    const rows = await sql`SELECT id FROM admins WHERE session_token = ${token} LIMIT 1`
+    return rows.length > 0
+  } catch {
+    return false
+  }
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const memberCookie = request.cookies.get('bsc_member')?.value
-  const isAdmin = request.cookies.get('bsc_admin')?.value === '1'
+  const adminToken = request.cookies.get('bsc_admin')?.value
+  const isAdmin = await isValidAdminSession(adminToken)
   const mustChangePw = request.cookies.get('bsc_admin_pwchange')?.value === '1'
 
   // Admin sub-routes: require bsc_admin — no member hash check needed

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import type React from 'react'
 import Link from 'next/link'
-import { cookies } from 'next/headers'
 import LogoutButton from '@/components/LogoutButton'
+import { getAuthenticatedAdmin } from '@/lib/admin-auth'
 
 export const metadata: Metadata = {
   title: 'Member Dashboard – BSC',
@@ -100,7 +100,7 @@ const sections: { href: string; label: string; desc: string; icon: React.ReactNo
 ]
 
 export default async function DashboardPage() {
-  const isAdmin = (await cookies()).get('bsc_admin')?.value === '1'
+  const isAdmin = (await getAuthenticatedAdmin()) !== null
 
   return (
     <div className="bg-cream dark:bg-forest-950 min-h-[calc(100vh-4rem)] py-12">

@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { cookies } from 'next/headers'
 import { neon } from '@neondatabase/serverless'
 import { drizzle } from 'drizzle-orm/neon-http'
 import { admins } from '@/db/schema'
 import DeleteButton from '@/components/DeleteButton'
+import { getAuthenticatedAdmin } from '@/lib/admin-auth'
 
 export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: 'Admin: Accounts – BSC' }
@@ -13,8 +13,8 @@ const sql = neon(process.env.DATABASE_URL!)
 const db = drizzle(sql)
 
 export default async function AdminAccountsPage() {
-  const cookieStore = await cookies()
-  const me = cookieStore.get('bsc_admin_user')?.value
+  const currentAdmin = await getAuthenticatedAdmin()
+  const me = currentAdmin?.email
 
   const rows = await db
     .select({ id: admins.id, email: admins.email, createdAt: admins.createdAt })

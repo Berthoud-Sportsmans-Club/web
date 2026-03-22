@@ -32,6 +32,7 @@ export const admins = pgTable('admins', {
   email: text('email').notNull().unique(),
   passwordHash: text('password_hash').notNull(),
   mustChangePassword: boolean('must_change_password').notNull().default(false),
+  sessionToken: text('session_token'),
   createdAt: timestamp('created_at').default(sql`now()`),
 })
 

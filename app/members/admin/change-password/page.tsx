@@ -1,13 +1,13 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import ChangePasswordForm from './ChangePasswordForm'
+import { getAuthenticatedAdmin } from '@/lib/admin-auth'
 
 export default async function ChangePasswordPage() {
+  const admin = await getAuthenticatedAdmin()
+  if (!admin) redirect('/members/admin')
+
   const cookieStore = await cookies()
-  const email = cookieStore.get('bsc_admin_user')?.value
-
-  if (!email) redirect('/members/admin')
-
   const required = cookieStore.get('bsc_admin_pwchange')?.value === '1'
-  return <ChangePasswordForm required={required} email={email} />
+  return <ChangePasswordForm required={required} email={admin.email} />
 }
