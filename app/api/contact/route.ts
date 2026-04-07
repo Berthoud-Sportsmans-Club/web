@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { db } from '@/db/client'
+import { settings } from '@/db/schema'
+import { eq } from 'drizzle-orm'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -10,12 +13,13 @@ const subjectLabels: Record<string, string> = {
   other: 'Other',
 }
 
-function getRecipient(subject: string): string {
-  if (!Object.prototype.hasOwnProperty.call(subjectLabels, subject)) {
-    return process.env.CONTACT_EMAIL_DEFAULT || ''
-  }
-  const envKey = `CONTACT_EMAIL_${subject.toUpperCase()}`
-  return process.env[envKey] || process.env.CONTACT_EMAIL_DEFAULT || ''
+async function getRecipient(): Promise<string> {
+  const row = await db
+    .select({ value: settings.value })
+    .from(settings)
+    .where(eq(settings.key, 'contact_email'))
+    .limit(1)
+  return row[0]?.value || process.env.CONTACT_EMAIL_DEFAULT || ''
 }
 
 export async function POST(request: Request) {
@@ -59,7 +63,7 @@ export async function POST(request: Request) {
     )
   }
 
-  const recipient = getRecipient(subject)
+  const recipient = await getRecipient()
   if (!recipient) {
     console.error('No contact email configured. Set CONTACT_EMAIL_DEFAULT in environment.')
     return NextResponse.json({ error: 'Contact form is not configured.' }, { status: 500 })

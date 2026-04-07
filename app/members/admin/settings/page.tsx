@@ -8,6 +8,7 @@ const SETTING_LABELS: Record<string, { label: string; description: string }> = {
   gate_code_bike_park:      { label: 'Bike Park Electronic Gate',   description: 'Keypad code for the Bike Park electronic gate (after hours & off season).' },
   gate_code_green_emergency:{ label: 'Green Emergency Services Gate', description: 'Lock combination for the green emergency services gate.' },
   gate_code_east:           { label: 'East / Swing Gate Code',      description: 'Combination for the east gates and the green double swing gate.' },
+  contact_email:            { label: 'Contact Form Recipient',      description: 'Email address that receives contact form submissions from the website.' },
 }
 
 type Setting = { key: string; value: string }
@@ -61,7 +62,7 @@ export default function SettingsPage() {
             ← Admin Dashboard
           </Link>
           <h1 className="section-heading mt-2">Site Settings</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage member access codes and gate combinations.</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage member access codes, gate combinations, and site configuration.</p>
         </div>
 
         {error && (

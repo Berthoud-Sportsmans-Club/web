@@ -25,7 +25,7 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const ALLOWED_KEYS = new Set(['member_code', 'gate_code_bike_park', 'gate_code_green_emergency', 'gate_code_east'])
+  const ALLOWED_KEYS = new Set(['member_code', 'gate_code_bike_park', 'gate_code_green_emergency', 'gate_code_east', 'contact_email'])
 
   const { key, value } = await request.json()
   if (!key || value === undefined) {
