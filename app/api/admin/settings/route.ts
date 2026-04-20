@@ -1,13 +1,8 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import { db } from '@/db/client'
 import { settings } from '@/db/schema'
 import { sql } from 'drizzle-orm'
-
-async function requireAdmin() {
-  const cookieStore = await cookies()
-  return cookieStore.get('bsc_admin')?.value === '1'
-}
+import { requireAdmin } from '@/lib/admin-auth'
 
 export async function GET() {
   if (!(await requireAdmin())) {

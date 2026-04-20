@@ -1,23 +1,13 @@
-import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { neon } from '@neondatabase/serverless'
 import { drizzle } from 'drizzle-orm/neon-http'
 import { admins } from '@/db/schema'
-import { eq } from 'drizzle-orm'
+import { eq, sql as drizzleSql } from 'drizzle-orm'
+import { requireAdmin, getAuthenticatedAdmin } from '@/lib/admin-auth'
 
 const sql = neon(process.env.DATABASE_URL!)
 const db = drizzle(sql)
-
-async function requireAdmin() {
-  const cookieStore = await cookies()
-  return cookieStore.get('bsc_admin')?.value === '1'
-}
-
-async function currentEmail() {
-  const cookieStore = await cookies()
-  return cookieStore.get('bsc_admin_user')?.value
-}
 
 function isUniqueViolation(err: unknown): boolean {
   return typeof err === 'object' && err !== null && (err as { code?: string }).code === '23505'
@@ -58,39 +48,30 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 
   if (!row) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
-  // If the current admin updated their own email, refresh the cookie
-  const me = await currentEmail()
-  if (me && row.email !== me) {
-    // Check if the record we just updated belongs to the current user
-    // (me is the old email; if id matches, update the cookie)
-    const cookieStore = await cookies()
-    const myRow = await db.select({ id: admins.id }).from(admins).where(eq(admins.email, row.email)).limit(1)
-    if (myRow[0] && String(myRow[0].id) === id) {
-      cookieStore.set('bsc_admin_user', row.email, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24 * 30,
-        path: '/',
-      })
-    }
-  }
-
   return NextResponse.json(row)
 }
 
 export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
-  if (!await requireAdmin()) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-
-  const me = await currentEmail()
-  if (!me) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  const currentAdmin = await getAuthenticatedAdmin()
+  if (!currentAdmin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { id } = await params
-  const rows = await db.select().from(admins).where(eq(admins.id, Number(id))).limit(1)
-  if (!rows[0]) return NextResponse.json({ error: 'Not found' }, { status: 404 })
-  if (rows[0].email === me) {
+
+  // Prevent deleting your own account
+  if (currentAdmin.id === Number(id)) {
     return NextResponse.json({ error: 'Cannot delete your own account' }, { status: 400 })
   }
+
+  // Prevent deleting the last admin account
+  const [{ count }] = await db
+    .select({ count: drizzleSql<number>`count(*)::int` })
+    .from(admins)
+  if (count <= 1) {
+    return NextResponse.json({ error: 'Cannot delete the last admin account' }, { status: 400 })
+  }
+
+  const rows = await db.select().from(admins).where(eq(admins.id, Number(id))).limit(1)
+  if (!rows[0]) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
   await db.delete(admins).where(eq(admins.id, Number(id)))
   return NextResponse.json({ ok: true })

@@ -5,6 +5,7 @@ import { db } from '@/db/client'
 import { admins, settings } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { hashMemberCode } from '@/lib/member-auth'
+import { generateSessionToken } from '@/lib/admin-auth'
 
 const COOKIE_OPTS = {
   httpOnly: true,
@@ -36,6 +37,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
   }
 
+  // Generate a cryptographically random session token and store it in the DB
+  const sessionToken = generateSessionToken()
+  await db
+    .update(admins)
+    .set({ sessionToken })
+    .where(eq(admins.id, admin.id))
+
   const memberRow = await db
     .select({ value: settings.value })
     .from(settings)
@@ -48,8 +56,7 @@ export async function POST(request: Request) {
     const memberHash = await hashMemberCode(memberCode)
     cookieStore.set('bsc_member', memberHash, COOKIE_OPTS)
   }
-  cookieStore.set('bsc_admin', '1', COOKIE_OPTS)
-  cookieStore.set('bsc_admin_user', normalizedEmail, COOKIE_OPTS)
+  cookieStore.set('bsc_admin', sessionToken, COOKIE_OPTS)
 
   if (admin.mustChangePassword) {
     cookieStore.set('bsc_admin_pwchange', '1', COOKIE_OPTS)
